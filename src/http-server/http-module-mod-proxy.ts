@@ -1,5 +1,5 @@
+import type { Http2ServerRequest, Http2ServerResponse } from 'http2'
 import type { InputLocations } from 'ccmoddb/build/src/types'
-import type { RequestListener, IncomingMessage, ServerResponse } from 'http'
 
 let allowedDbs: string[] = []
 export function setAllowedDbs(dbs: string[]) {
@@ -62,7 +62,7 @@ async function sha256(data: Uint8Array): Promise<string> {
     return result
 }
 
-export const handleFunction: RequestListener = async (req: IncomingMessage, res: ServerResponse) => {
+export const handleFunction = async (req: Http2ServerRequest, res: Http2ServerResponse) => {
     const url = req.url ?? ''
 
     try {

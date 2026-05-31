@@ -5,7 +5,7 @@ import {
     startWatchingMods,
 } from './http-module-live-mod-updates.ts'
 import { handleFunction as fsHandle } from './http-module-fs.ts'
-import { createServer } from 'https'
+import { createSecureServer } from 'http2'
 import fs from 'fs'
 import { createChain } from './http-misc.ts'
 
@@ -69,7 +69,7 @@ export async function startHttpServer() {
         fs.promises.readFile('./cert/localhost+1-key.pem'),
     ])
 
-    const httpServer = createServer({ cert, key }, createChain(modProxyHandle, liveModUpdatesHandle, fsHandle))
+    const httpServer = createSecureServer({ cert, key }, createChain(modProxyHandle, liveModUpdatesHandle, fsHandle))
     const port = 33405
     console.log('http server listening to', port)
     httpServer.listen(port)

@@ -1,4 +1,4 @@
-import type { IncomingMessage, RequestListener, ServerResponse } from 'http'
+import type { Http2ServerRequest, Http2ServerResponse } from 'http2'
 import type { AsyncZippable } from 'fflate/browser'
 import type { Dirent } from 'fs'
 import { buildZipTreeRecursive } from '../fs/fs-misc.ts'
@@ -156,7 +156,7 @@ async function sha256(data: Uint8Array): Promise<string> {
     return result
 }
 
-export const handleFunction: RequestListener = async (req: IncomingMessage, res: ServerResponse) => {
+export const handleFunction = async (req: Http2ServerRequest, res: Http2ServerResponse) => {
     const url = req.url ?? ''
 
     try {

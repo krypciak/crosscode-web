@@ -1,4 +1,4 @@
-import type { IncomingMessage, RequestListener, ServerResponse } from 'http'
+import type { Http2ServerRequest, Http2ServerResponse } from 'http2'
 
 let fs: typeof import('fs')
 ;(async () => (fs = 'require' in global ? (0, eval)("require('fs')") : await import('fs')))()
@@ -43,7 +43,7 @@ function getContentType(filePath: string): string {
     return mimeTypes[ext] ?? 'application/octet-stream'
 }
 
-function setCorsHeaders(res: ServerResponse) {
+function setCorsHeaders(res: Http2ServerResponse) {
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS')
     res.setHeader('Access-Control-Allow-Headers', '*')
@@ -62,7 +62,7 @@ async function readFileIfFresh(filePath: string): Promise<FileResult> {
     }
 }
 
-export const handleFunction: RequestListener = async (req: IncomingMessage, res: ServerResponse) => {
+export const handleFunction = async (req: Http2ServerRequest, res: Http2ServerResponse) => {
     setCorsHeaders(res)
 
     if (req.method === 'OPTIONS') {
