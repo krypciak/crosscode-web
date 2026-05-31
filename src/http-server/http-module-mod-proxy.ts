@@ -1,6 +1,5 @@
 import type { InputLocations } from 'ccmoddb/build/src/types'
-import type { IncomingMessage, ServerResponse } from 'http'
-import type { createServer } from 'http-server'
+import type { RequestListener, IncomingMessage, ServerResponse } from 'http'
 
 let allowedDbs: string[] = []
 export function setAllowedDbs(dbs: string[]) {
@@ -63,9 +62,7 @@ async function sha256(data: Uint8Array): Promise<string> {
     return result
 }
 
-export type HandleFunction = NonNullable<NonNullable<Parameters<typeof createServer>[0]>['before']>[number]
-
-export const handleFunction: HandleFunction = async (req: IncomingMessage, res: ServerResponse) => {
+export const handleFunction: RequestListener = async (req: IncomingMessage, res: ServerResponse) => {
     const url = req.url ?? ''
 
     try {

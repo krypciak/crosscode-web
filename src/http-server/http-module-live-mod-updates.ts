@@ -1,17 +1,13 @@
-import type { IncomingMessage, ServerResponse } from 'http'
+import type { IncomingMessage, RequestListener, ServerResponse } from 'http'
 import type { AsyncZippable } from 'fflate/browser'
-import type { HandleFunction } from './http-module-mod-proxy'
 import type { Dirent } from 'fs'
 import { buildZipTreeRecursive } from '../fs/fs-misc.ts'
 
 let fs: typeof import('fs')
 let child_process: typeof import('child_process')
-;(async () => {
-    fs = 'require' in global ? (0, eval)("require('fs')") : await import('fs')
-})()
-;(async () => {
-    child_process = 'require' in global ? (0, eval)("require('child_process')") : await import('child_process')
-})()
+;(async () => (fs = 'require' in global ? (0, eval)("require('fs')") : await import('fs')))()
+;(async () =>
+    (child_process = 'require' in global ? (0, eval)("require('child_process')") : await import('child_process')))()
 
 let zip: (typeof import('fflate'))['zip']
 
@@ -160,7 +156,7 @@ async function sha256(data: Uint8Array): Promise<string> {
     return result
 }
 
-export const handleFunction: HandleFunction = async (req: IncomingMessage, res: ServerResponse) => {
+export const handleFunction: RequestListener = async (req: IncomingMessage, res: ServerResponse) => {
     const url = req.url ?? ''
 
     try {

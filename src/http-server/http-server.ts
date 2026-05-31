@@ -1,10 +1,13 @@
-import { createServer } from 'http-server'
 import { handleFunction as modProxyHandle, setAllowedDbs, updateValidUrlSet } from './http-module-mod-proxy.ts'
 import {
     handleFunction as liveModUpdatesHandle,
     setModConfigs,
     startWatchingMods,
 } from './http-module-live-mod-updates.ts'
+import { handleFunction as fsHandle } from './http-module-fs.ts'
+import { createServer } from 'https'
+import fs from 'fs'
+import { createChain } from './http-misc.ts'
 
 export async function startHttpServer() {
     setAllowedDbs([
@@ -17,7 +20,7 @@ export async function startHttpServer() {
     setModConfigs([
         // {
         //     id: 'cc-multibakery',
-        //     repoPath: '/home/krypek/home/Programming/crosscode/instances/cc-server/assets/mods/cc-multibakery',
+        //     repoPath: '/home/krypek/Programming/crosscode/instances/cc-server/assets/mods/cc-multibakery',
         //     buildCmd: 'bun',
         //     buildArguments: [
         //         'build.ts',
@@ -33,7 +36,7 @@ export async function startHttpServer() {
         // },
         // {
         //     id: 'cc-instanceinator',
-        //     repoPath: '/home/krypek/home/Programming/crosscode/instances/cc-server/assets/mods/cc-instanceinator',
+        //     repoPath: '/home/krypek/Programming/crosscode/instances/cc-server/assets/mods/cc-instanceinator',
         //     buildCmd: 'esbuild',
         //     buildArguments: [
         //         '--target=es2018',
@@ -46,7 +49,7 @@ export async function startHttpServer() {
         // },
         {
             id: 'cc-gamepad-overlay',
-            repoPath: '/home/krypek/home/Programming/repos/cc-gamepad-overlay',
+            repoPath: '/home/krypek/Programming/repos/cc-gamepad-overlay',
             buildCmd: 'esbuild',
             buildArguments: [
                 '--target=es2018',
@@ -61,18 +64,12 @@ export async function startHttpServer() {
     ])
     startWatchingMods()
 
-    const httpServer = createServer({
-        root: './dist',
-        cache: -1,
-        cors: true,
-        showDotfiles: false,
-        showDir: 'false',
-        before: [modProxyHandle, liveModUpdatesHandle],
-        https: {
-            cert: './cert/localhost+1.pem',
-            key: './cert/localhost+1-key.pem',
-        },
-    })
+    const [cert, key] = await Promise.all([
+        fs.promises.readFile('./cert/localhost+1.pem'),
+        fs.promises.readFile('./cert/localhost+1-key.pem'),
+    ])
+
+    const httpServer = createServer({ cert, key }, createChain(modProxyHandle, liveModUpdatesHandle, fsHandle))
     const port = 33405
     console.log('http server listening to', port)
     httpServer.listen(port)

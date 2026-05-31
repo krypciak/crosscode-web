@@ -1,10 +1,10 @@
-arguments=--init-script /home/krypek/home/.local/share/nvim/mason/packages/jdtls/configuration/org.eclipse.osgi/58/0/.cp/gradle/init/init.gradle
+arguments=--init-script /home/krypek//.local/share/nvim/mason/packages/jdtls/configuration/org.eclipse.osgi/58/0/.cp/gradle/init/init.gradle
 auto.sync=false
 build.scans.enabled=false
 connection.gradle.distribution=GRADLE_DISTRIBUTION(WRAPPER)
 connection.project.dir=
 eclipse.preferences.version=1
-gradle.user.home=/home/krypek/home/.local/share/gradle
+gradle.user.home=/home/krypek//.local/share/gradle
 java.home=/usr/lib/jvm/java-21-openjdk
 jvm.arguments=
 offline.mode=false
