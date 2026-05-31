@@ -122,6 +122,13 @@ window.process = {
             console.warn('Unsupported process.on:', name)
         }
     },
+    off(name: string, _func: () => void) {
+        if (name == 'on') {
+        } else if (name == 'exit') {
+        } else {
+            console.warn('Unsupported process.on:', name)
+        }
+    },
     execPath: 'client',
     versions: {
         nw: '100.0.0',
