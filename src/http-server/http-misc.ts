@@ -1,7 +1,7 @@
-import type { Http2ServerRequest, Http2ServerResponse } from 'http2'
+import type { IncomingMessage, ServerResponse } from 'http'
 
-export function createChain(...handlers: ((req: Http2ServerRequest, res: Http2ServerResponse) => void)[]) {
-    return (req: Http2ServerRequest, res: Http2ServerResponse) => {
+export function createChain(...handlers: ((req: IncomingMessage, res: ServerResponse) => void)[]) {
+    return (req: IncomingMessage, res: ServerResponse) => {
         let index = 0
         const next = () => {
             const handler = handlers[index]
