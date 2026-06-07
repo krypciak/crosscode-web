@@ -1,13 +1,13 @@
-import { handleFunction as modProxyHandle, setAllowedDbs, updateValidUrlSet } from './http-module-mod-proxy.ts'
+import { handleFunction as modProxyHandle, setAllowedDbs, updateValidUrlSet } from './http-module-mod-proxy'
 import {
     handleFunction as liveModUpdatesHandle,
     setModConfigs,
     startWatchingMods,
-} from './http-module-live-mod-updates.ts'
-import { handleFunction as fsHandle } from './http-module-fs.ts'
+} from './http-module-live-mod-updates'
+import { handleFunction as fsHandle } from './http-module-fs'
 import { createServer } from 'https'
 import fs from 'fs'
-import { createChain } from './http-misc.ts'
+import { createChain } from './http-misc'
 
 export async function startHttpServer() {
     setAllowedDbs([

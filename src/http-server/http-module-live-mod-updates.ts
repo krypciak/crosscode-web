@@ -1,7 +1,7 @@
 import type { IncomingMessage, RequestListener, ServerResponse } from 'http'
 import type { AsyncZippable } from 'fflate/browser'
 import type { Dirent } from 'fs'
-import { buildZipTreeRecursive } from '../fs/fs-misc.ts'
+import { buildZipTreeRecursive } from '../fs/fs-misc'
 
 let fs: typeof import('fs')
 let child_process: typeof import('child_process')

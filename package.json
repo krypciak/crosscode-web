@@ -9,7 +9,7 @@
         "buildAndroid": "cd build && bun build.ts build android debug",
         "buildAndroidRelease": "cd build && bun build.ts build android release",
         "watch": "cd build && bun build.ts watch web debug",
-        "httpServer": "node --experimental-strip-types src/http-server/http-server.ts"
+        "httpServer": "bun src/http-server/http-server.ts"
     },
     "devDependencies": {
         "@capacitor/android": "^8.2.0",
@@ -31,7 +31,6 @@
         "fflate": "^0.8.2",
         "js-fileexplorer": "^1.0.0",
         "mkcert": "^3.2.0",
-        "node": "^25.8.1",
         "path-browserify": "^1.0.1",
         "semver": "^7.7.4",
         "typescript": "^5.9.3",
