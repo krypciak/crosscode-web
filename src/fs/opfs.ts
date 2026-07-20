@@ -2,14 +2,13 @@ import type { Dirent, MakeDirectoryOptions, ObjectEncodingOptions, RmOptions, St
 
 import { dirname, basename } from 'path-browserify'
 import { OpfsDirent, OpfsStats, constants, throttleTasks } from './fs-misc'
-import { updateStorageInfoLabel } from '../ui'
 import { getUint8Array, throwErrorWithCode } from '../utils'
 
 let fsRoot: FileSystemDirectoryHandle
 
-export async function init() {
+export async function init(updateStorageInfoLabel: (mountedCount?: number) => unknown) {
     fsRoot = await navigator.storage.getDirectory()
-    await buildQuickPathLookupMap()
+    await buildQuickPathLookupMap(updateStorageInfoLabel)
 
     await navigator.storage.persist?.()
 }
@@ -30,7 +29,7 @@ const mustLoadFiles: Set<string> = new Set([
     'assets/extension/snowman-tank/snowman-tank.json',
 ])
 
-async function buildQuickPathLookupMap() {
+async function buildQuickPathLookupMap(updateStorageInfoLabel: (mountedCount?: number) => unknown) {
     pathToFileHandle.clear()
     pathToDirHandle.clear()
 
@@ -502,6 +501,3 @@ export const fs = {
     clearStorage,
     usage,
 }
-
-// const fsa: typeof import('fs') = undefined as any
-// fsa.promises.writeFile("hi", data)

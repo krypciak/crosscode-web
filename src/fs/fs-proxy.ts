@@ -1,5 +1,5 @@
 import metadata from '../../../ccloader3/metadata.json'
-import { updateUI } from '../ui'
+import { updateStorageInfoLabel, updateUI } from '../ui'
 import { nwGui } from '../nwjs-fix'
 import { copyFiles, zipToFileEntryList } from '../upload-processing'
 
@@ -17,7 +17,7 @@ export let isMounted = false
 export let ccloaderVersion: string | undefined
 
 export async function preloadInit() {
-    await init()
+    await init(updateStorageInfoLabel)
 
     ccloaderVersion = metadata.version
     await fs.promises.mkdir(nwGui.App.dataPath, { recursive: true })
