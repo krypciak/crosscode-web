@@ -1,11 +1,11 @@
 import { updateUploadStatusLabel } from './ui'
-import { nwGui, path as paths } from './nwjs-fix'
 import { fs, getInternalFileList } from './fs/fs-proxy'
 import { type Unzipped, unzipSync } from 'fflate/browser'
 import { FileEntry, fileEntryFromFile } from './utils'
-import { throttleTasks } from './fs/fs-misc'
+import { throttleTasks } from 'web-nwjs-spoofer/src/fs-misc'
 
 function getParentDirs(files: FileEntry[]): string[] {
+    const paths = window.require('path')
     const dirs = new Set<string>()
 
     for (const { path } of files) {
@@ -129,6 +129,6 @@ export async function uploadCrossCode(filesRaw: FileList) {
 }
 
 export async function uploadSave(file: File) {
-    const files = [fileEntryFromFile(file, `${nwGui.App.dataPath}/cc.save`)]
+    const files = [fileEntryFromFile(file, `${window.nw.App.dataPath}/cc.save`)]
     await copyFiles(files, false)
 }

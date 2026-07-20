@@ -1,6 +1,6 @@
 import type { ServiceWorker } from '../../ccloader3/packages/core/src/service-worker-bridge'
 import { fetchBinaryAndroid } from './android-bridge'
-import { fs } from './fs/opfs'
+import { fs } from './fs/fs-proxy'
 
 function sendServiceWorkerMessage(packet: ServiceWorker.Outgoing.Packet): void {
     const { controller } = window.navigator.serviceWorker

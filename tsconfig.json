@@ -7,6 +7,10 @@
         "lib": [
             "ESNext"
         ],
+        "types": [
+            "serviceworker",
+            "nw.js",
+        ],
         "target": "esnext" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
         "module": "esnext" /* Specify what module code is generated. */,
         // "rootDir": "./src/" /* Specify the root folder within your source files. */,

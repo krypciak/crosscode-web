@@ -1,6 +1,6 @@
 import { copyFiles } from './upload-processing'
 import { getUint8Array } from './utils'
-import { fs } from './fs/opfs'
+import { fs } from './fs/fs-proxy'
 import { updateUploadStatusLabel } from './ui'
 
 export async function updateLiveMods() {

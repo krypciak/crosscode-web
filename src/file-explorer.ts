@@ -1,10 +1,11 @@
 import { AsyncZippable, zip } from 'fflate/browser'
 import * as fe from './file-explorer-types'
-import { buildZipTreeRecursive, throttleTasks } from './fs/fs-misc'
+import { buildZipTreeRecursive } from './fs/fs-misc'
 import { isMounted } from './fs/fs-proxy'
-import { fs } from './fs/opfs'
+import { fs } from './fs/fs-proxy'
 import { getUint8Array } from './utils'
 import { isAndroid, saveFileAndroid } from './android-bridge'
+import { throttleTasks } from 'web-nwjs-spoofer/src/fs-misc'
 
 import 'core-js/proposals/array-buffer-base64'
 

@@ -1,13 +1,14 @@
 import { loadServiceWorker } from '../../ccloader3/packages/core/src/service-worker-bridge'
 import { getInternalFileList, preloadInit } from './fs/fs-proxy'
-import { requireFix } from './nwjs-fix'
 import { initLoadScreen } from './ui'
-import { checkAutorun } from './autorun'
+import { checkAutorun, exit } from './autorun'
 import type { VersionResp } from './service-worker/offline-cache-proxy'
 import { copyFiles } from './upload-processing'
 import { initOpfsProxyBridge } from './opfs-proxy-bridge'
 import { updateLiveMods } from './live-mods'
 import { isAndroid, setFullscreenAndroid } from './android-bridge'
+import { nodeNwjsShims } from 'web-nwjs-spoofer/src/node-nwjs-shims'
+import { fs } from './fs/fs-proxy'
 
 import './localstoarge-default'
 
@@ -15,8 +16,9 @@ declare global {
     const WEB: boolean
     const LIVEMODS: boolean
     const DEBUG: boolean
-}
 
+    var ccbundler: boolean
+}
 async function setup() {
     // trigger service worker update check
     fetch('/version').then(async resp => {
@@ -36,12 +38,19 @@ async function setup() {
         return
     }
 
+    nodeNwjsShims({
+        fs: fs as unknown as typeof import('fs'),
+        enableGreenworks: true,
+        enableNw: true,
+        exit,
+    })
+    window.ccbundler = true
+
     await loadServiceWorker()
     initOpfsProxyBridge()
 
     if (navigator.serviceWorker.controller) {
         initLoadScreen()
-        requireFix()
 
         await preloadInit()
 

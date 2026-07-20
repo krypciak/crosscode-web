@@ -1,9 +1,8 @@
 import metadata from '../../../ccloader3/metadata.json'
 import { updateStorageInfoLabel, updateUI } from '../ui'
-import { nwGui } from '../nwjs-fix'
 import { copyFiles, zipToFileEntryList } from '../upload-processing'
 
-import { init, fs } from './opfs'
+import { init, fs } from 'web-nwjs-spoofer/src/opfs'
 import { FileEntry, fileEntryFromJson, getUint8Array } from '../utils'
 export { fs }
 
@@ -17,10 +16,24 @@ export let isMounted = false
 export let ccloaderVersion: string | undefined
 
 export async function preloadInit() {
-    await init(updateStorageInfoLabel)
+    await init({
+        updateStorageInfoLabel: updateStorageInfoLabel,
+        mustLoadFiles: new Set([
+            'ccloader3/metadata.json',
+            'ccloader-user-config.js',
+            'assets/extension/readme.txt',
+            'assets/extension/fish-gear/fish-gear.json',
+            'assets/extension/flying-hedgehag/flying-hedgehag.json',
+            'assets/extension/manlea/manlea.json',
+            'assets/extension/ninja-skin/ninja-skin.json',
+            'assets/extension/post-game/post-game.json',
+            'assets/extension/scorpion-robo/scorpion-robo.json',
+            'assets/extension/snowman-tank/snowman-tank.json',
+        ]),
+    })
 
     ccloaderVersion = metadata.version
-    await fs.promises.mkdir(nwGui.App.dataPath, { recursive: true })
+    await fs.promises.mkdir(window.nw.App.dataPath, { recursive: true })
 
     isMounted = true
     await updateUI()
