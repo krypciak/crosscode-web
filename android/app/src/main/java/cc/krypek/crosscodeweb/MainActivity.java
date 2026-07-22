@@ -1,5 +1,6 @@
 package cc.krypek.crosscodeweb;
 
+import com.getcapacitor.Bridge;
 import com.getcapacitor.BridgeActivity;
 
 import android.os.Bundle;
@@ -22,8 +23,10 @@ public class MainActivity extends BridgeActivity {
         Fullscreen fullscreen = new Fullscreen(this);
         FileSave fileSave = new FileSave(this);
 
-        WebView webView = getBridge().getWebView();
+        Bridge bridge = getBridge();
+        WebView webView = bridge.getWebView();
         if (webView != null) {
+            webView.setWebViewClient(new SslBypassWebViewClient(bridge));
             webView.addJavascriptInterface(new Object() {
                 @JavascriptInterface
                 public void reportRumble(double strength, double effectDuration) {
