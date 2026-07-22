@@ -15,7 +15,9 @@ export async function updateLiveMods() {
         let pathList = list.map(id => ({ id, path: `/assets/mods/${id}.ccmod` }))
 
         const exitsArr = await Promise.all(pathList.map(({ path }) => fs.promises.exists(path)))
-        pathList = pathList.filter(({ id }, i) => localStorage[`modEnabled-${id}`] == 'true' || !exitsArr[i])
+        pathList = pathList.filter(
+            ({ id }, i) => (localStorage[`modEnabled-${id}`] ?? 'true') == 'true' || !exitsArr[i]
+        )
 
         let fetched = -1
         function updateLabel() {
