@@ -30,8 +30,9 @@ pnpm run httpServer
 ### Building android app
 
 ```bash
+npm run buildAndroid # or npm run buildAndroidRelease
 npx cap sync
 cd android
 ./gradlew build
-# ls **.apk
+# ls **/*.apk
 ```
