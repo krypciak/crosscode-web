@@ -1,16 +1,8 @@
 {
-    "include": [
-        "src",
-        "node_modules/ultimate-crosscode-typedefs/crosscode-ccloader-all.d.ts"
-    ],
+    "include": ["src", "node_modules/ultimate-crosscode-typedefs/crosscode-ccloader-all.d.ts"],
     "compilerOptions": {
-        "lib": [
-            "ESNext"
-        ],
-        "types": [
-            "serviceworker",
-            "nw.js",
-        ],
+        "lib": ["ESNext"],
+        "types": ["serviceworker", "nw.js"],
         "target": "esnext" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
         "module": "esnext" /* Specify what module code is generated. */,
         // "rootDir": "./src/" /* Specify the root folder within your source files. */,

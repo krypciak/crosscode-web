@@ -1,12 +1,6 @@
 {
-    "include": [
-        "src",
-        "../node_modules/ultimate-crosscode-typedefs/crosscode-ccloader-all.d.ts"
-    ],
-    "exclude": [
-        "../../assets/js/game.compiled.js",
-        "../../assets/game/page/game-base.js"
-    ],
+    "include": ["src", "../node_modules/ultimate-crosscode-typedefs/crosscode-ccloader-all.d.ts"],
+    "exclude": ["../../assets/js/game.compiled.js", "../../assets/game/page/game-base.js"],
     "compilerOptions": {
         "target": "ESNext" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
         "module": "ESNext" /* Specify what module code is generated. */,
