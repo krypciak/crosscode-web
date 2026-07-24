@@ -5,6 +5,12 @@ const config: CapacitorConfig = {
     appName: 'CrossCode',
     webDir: 'dist',
     loggingBehavior: 'none',
+    server: {
+        cleartext: true,
+    },
+    android: {
+        allowMixedContent: true,
+    },
 }
 
 export default config
