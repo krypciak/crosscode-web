@@ -17,7 +17,7 @@ declare global {
     const LIVEMODS: boolean
     const DEBUG: boolean
 
-    var ccbundler: boolean
+    var crosscodeWeb: boolean
 }
 async function setup() {
     // trigger service worker update check
@@ -44,7 +44,7 @@ async function setup() {
         enableNw: true,
         exit,
     })
-    window.ccbundler = true
+    window.crosscodeWeb = true
 
     await loadServiceWorker()
     initOpfsProxyBridge()
