@@ -1,6 +1,5 @@
 allowBuilds:
+  bun: true
   core-js: true
   esbuild: true
   node: true
-onlyBuiltDependencies:
-  - esbuild
