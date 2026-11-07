@@ -29,7 +29,7 @@ async function addAllowedDb(url: string) {
     const inputLocationsUrl = `${url}/input-locations.json`
     try {
         const inputLocations: InputLocations = await (await fetch(inputLocationsUrl)).json()
-        for (const { url } of inputLocations) {
+        for (const { url } of Object.values(inputLocations)) {
             validUrlSet.add(url)
         }
     } catch (e) {

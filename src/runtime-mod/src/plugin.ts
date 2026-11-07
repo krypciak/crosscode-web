@@ -27,10 +27,10 @@ export default class CrossCodeWebRuntimeMod implements PluginClass {
 
     ccSaveFix() {
         ig.StorageData.inject({
-            // @ts-expect-error
             _loadStorageFromData(data) {
-                if (data instanceof ArrayBuffer) data = new TextDecoder().decode(data)
                 // @ts-expect-error
+                if (data && typeof data === 'object' && data instanceof ArrayBuffer)
+                    data = new TextDecoder().decode(data)
                 return this.parent(data)
             },
         })
